@@ -1,6 +1,6 @@
-#SocialWiki Server
+# SocialWiki Server
 
-##Requirements
+## Requirements
 - python 3
 - pip
 
@@ -11,7 +11,7 @@ pip install -r requirements.txt
 python -m spacy download en_core_web_sm
 ```
 
-##Run the server
+## Run the server
 ```
 python server.py
 ```
