@@ -70,7 +70,7 @@ export default {
 <style lang="scss">
 .overlay-left,
 .overlay-right {
-  background-color: #2f2f2f !important;
+  background-color: #a7a7a7 !important;
   z-index: 9998;
 }
 </style>
