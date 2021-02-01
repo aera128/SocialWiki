@@ -3,7 +3,7 @@ import re
 import spacy
 from daterangeparser import parse
 
-nlp = spacy.load('en_core_web_sm')
+nlp = spacy.load('en_core_web_md')
 p = re.compile(r'\[\d+\]')
 
 
@@ -20,10 +20,17 @@ def extract_events(text):
     line = line.replace(',', '').replace('.', '').replace('\n', '').replace('\\', '').replace('/', '').replace('\'', '')
     events = []
     doc = nlp(line)
+    last_year = None
     for sent in doc.sents:
         for ent in filter(lambda e: e.label_ == 'DATE', list(sent.ents)):
             try:
                 (start, end) = parse(ent.text)
+                match = re.match(r'.*([1-3][0-9]{3})', ent.text)
+                if match is not None:
+                    last_year = match.group(1)
+                else:
+                    if last_year is not None:
+                        start = start.replace(year=int(last_year))
             except:
                 continue
             current = ent.root

@@ -5,10 +5,18 @@
 - pip
 
 ## Installation
+### Commands
 ```
 cd server
+python -m venv venv
+venv/Scripts/activate
 pip install -r requirements.txt
-python -m spacy download en_core_web_sm
+python -m spacy download en_core_web_md
+```
+
+### If bugs
+```
+pip install flask-cors flask-restful
 ```
 
 ## Run the server

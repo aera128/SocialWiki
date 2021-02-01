@@ -1,6 +1,6 @@
 <template lang="html">
   <v-container class="home" fluid>
-    <v-parallax dark src="https://i.pinimg.com/originals/46/1d/25/461d254f8563f8945ce3a385f289df17.jpg" style="height: calc(100vh - 75px)">
+    <v-parallax dark src="https://i.pinimg.com/originals/46/1d/25/461d254f8563f8945ce3a385f289df17.jpg" style="height: calc(100vh - 90px)">
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12">
           <h1 class="display-3 font-weight-thin mb-4" style="color: black">
@@ -63,7 +63,7 @@ export default {
   methods: {
     updateSearch() {
       if (this.query !== '') {
-        wiki().search(this.query)
+        wiki().prefixSearch(this.query, 10)
             .then(value => {
               this.items = value.results
             });
@@ -72,7 +72,7 @@ export default {
       }
     },
     goTo(item) {
-      this.$router.push('/page?q=' + item)
+      this.$router.push('/page/' + item)
     }
   },
   computed: {},
