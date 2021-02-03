@@ -110,15 +110,15 @@
                   </v-list-item-title>
                   {{ post[2] }}
                   <v-list-item-subtitle class="d-flex justify-space-around w-100 mt-5">
-                    <v-badge :content="nFormatter(Math.floor(Math.random() * Math.floor(1000000)).toString())"
+                    <v-badge :content="nFormatter(post[3])"
                              inline>
                       <v-icon color="primary">mdi-thumb-up</v-icon>
                     </v-badge>
-                    <v-badge :content="nFormatter(Math.floor(Math.random() * Math.floor(100000)).toString())"
+                    <v-badge :content="nFormatter(post[4])"
                              inline>
                       <v-icon color="primary">mdi-comment</v-icon>
                     </v-badge>
-                    <v-badge :content="nFormatter(Math.floor(Math.random() * Math.floor(1000)).toString())"
+                    <v-badge :content="nFormatter(post[5])"
                              inline>
                       <v-icon color="primary">mdi-share</v-icon>
                     </v-badge>
@@ -173,8 +173,28 @@ export default {
       if (this.query) {
         this.overlay = true
         wiki().page(this.query).then(page => {
-          page.info().then(infos => this.description = infos)
-          page.mainImage().then(image => this.profilepic = image)
+          page.fullInfo().then(infos => {
+            infos = infos.general
+            let list_infos = {}
+            for (const info in infos) {
+              if (info !== 'signatureAlt') {
+                if (typeof infos[info] === 'string') {
+                  if (!infos[info].includes('.jpg') && !infos[info].includes('.png') && !infos[info].includes('.svg')) {
+                    list_infos[info] = infos[info]
+                  }
+                } else if (typeof infos[info] === 'number') {
+                  list_infos[info] = infos[info].toString()
+                }
+                else {
+                  list_infos[info] = infos[info]
+                }
+              }
+            }
+            this.description = list_infos
+          })
+          page.mainImage().then(image => {
+            if (image.includes('.jpg') || image.includes('.png')) this.profilepic = image
+          })
           page.images().then(images => {
             this.images = images
             this.images = this.images.filter(image => image.includes('.jpg'))

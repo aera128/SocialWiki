@@ -4,6 +4,7 @@ import time
 from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_restful import Resource, Api, reqparse
+from sqlitedict import SqliteDict
 
 from utils import extract_events
 
@@ -11,7 +12,7 @@ app = Flask(__name__)
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 api = Api(app)
 
-history = dict()
+history = SqliteDict(':memory:', autocommit=True)
 parser = reqparse.RequestParser()
 parser.add_argument('query', type=str)
 parser.add_argument('text', type=str)

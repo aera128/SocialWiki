@@ -1,3 +1,4 @@
+import random
 import re
 
 import spacy
@@ -48,5 +49,6 @@ def extract_events(text):
                 dep_subtree(current, "attr"),
                 dep_subtree(current, "advmod")]))
             if len(desc.split(' ')) > 4:
-                events = events + [(start, ent.text, desc)]
+                events = events + [(start, ent.text, desc, random.randint(0, 1000000000), random.randint(0, 1000000),
+                                    random.randint(0, 10000))]
     return events
