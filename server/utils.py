@@ -18,7 +18,6 @@ def dep_subtree(token, dep):
 
 def extract_events(text):
     line = p.sub('', text)
-    line = line.replace(',', '').replace('.', '').replace('\n', '').replace('\\', '').replace('/', '').replace('\'', '')
     events = []
     doc = nlp(line)
     last_year = None
