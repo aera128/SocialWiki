@@ -5,21 +5,22 @@ import spacy
 from daterangeparser import parse
 
 nlp = spacy.load('en_core_web_md')
+
 p = re.compile(r'\[\d+\]')
 
 
 def dep_subtree(token, dep):
     child = next(filter(lambda c: c.dep_ == dep, token.children), None)
-    if child != None:
+    if child is not None:
         return ' '.join([c.text for c in child.subtree])
     else:
         return ''
 
 
 def extract_events(text):
-    line = p.sub('', text)
+    text = p.sub('', text)
     events = []
-    doc = nlp(line)
+    doc = nlp(text)
     last_year = None
     for sent in doc.sents:
         for ent in filter(lambda e: e.label_ == 'DATE', list(sent.ents)):

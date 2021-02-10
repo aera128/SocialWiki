@@ -209,7 +209,7 @@ export default {
               url.replace(" ", "%20")
               axios
                   .post(url, {
-                    'query': this.text,
+                    'query': this.query,
                     'text': this.text
                   })
                   .then(r => {

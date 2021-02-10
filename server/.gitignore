@@ -1,6 +1,6 @@
 venv
 __pycache__
-
+database.sqlite
 # Editor directories and files
 .idea
 .vscode

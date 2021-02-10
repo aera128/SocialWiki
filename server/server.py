@@ -12,7 +12,7 @@ app = Flask(__name__)
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 api = Api(app)
 
-history = SqliteDict(':memory:', autocommit=True)
+history = SqliteDict('database.sqlite', autocommit=True)
 parser = reqparse.RequestParser()
 parser.add_argument('query', type=str)
 parser.add_argument('text', type=str)
